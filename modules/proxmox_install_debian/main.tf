@@ -26,7 +26,7 @@ resource "null_resource" "install_proxmox" {
 
       "chmod +x /tmp/proxmox_install.sh",
 
-      "sudo /tmp/proxmox_install.sh"
+      "sudo /tmp/proxmox_install.sh ${var.proxmox_user}"
       
     ]
   }

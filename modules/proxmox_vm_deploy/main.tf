@@ -11,8 +11,6 @@ module "proxmox_install" {
   server_ip  = var.server_ip
   ssh_user   = var.ssh_user
   private_key = var.private_key
-  proxmox_user = var.proxmox_user
-  
 }
 
 module "nginx_install_tls" {

@@ -1,4 +1,8 @@
 #!/bin/bash
+
+# Init env "proxmox_user" from arg
+PVE_USERNAME=$1
+
 # Noninteractive var
 export DEBIAN_FRONTEND=noninteractive
 
@@ -25,17 +29,15 @@ wget https://enterprise.proxmox.com/debian/proxmox-release-$debian_version.gpg -
 # Install Proxmox
 apt install -y proxmox-ve postfix open-iscsi
 
-# Create username for PVE
-echo "Insert username:"
-read USERNAME
+
 
 # Create password for username
 echo "Insert password:"
 read -s PASSWORD
 
-pveum user add $USERNAME@pve -password $PASSWORD && 
-pveum acl modify / -user $USERNAME@pve --roles Administrator
+pveum user add $PVE_USERNAME@pve -password $PASSWORD && 
+pveum acl modify / -user $PVE_USERNAME@pve --roles Administrator
 echo "Создан успешно"
 
 # Create API-token for Proxmox
-pveum user token add $USERNAME@pve token --privsep 0
+pveum user token add $PVE_USERNAME@pve token --privsep 0

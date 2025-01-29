@@ -13,7 +13,11 @@ variable "private_key" {
   type        = string
 }
 
-variable "proxmox_api_token" {
-  description = "API-token for Proxmox"
+variable "proxmox_user" {
+  description = "PVE User"
   type        = string
 }
+
+# output "proxmox_user" {
+#   value = var.proxmox_user
+# }

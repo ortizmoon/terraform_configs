@@ -21,12 +21,3 @@ variable "domain_name" {
 output "domain_name" {
   value = var.domain_name
 }
-
-variable "proxmox_user" {
-  description = "PVE User"
-  type        = string
-}
-
-# output "proxmox_user" {
-#   value = var.proxmox_user
-# }
