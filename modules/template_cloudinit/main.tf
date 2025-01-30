@@ -6,7 +6,7 @@ terraform {
   }
 }
 
-resource "null_resource" "install_proxmox" {
+resource "null_resource" "template_cloudinit" {
   connection {
     type        = "ssh"
     host        = var.server_ip

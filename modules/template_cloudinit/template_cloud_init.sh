@@ -19,6 +19,19 @@ CLOUD_INIT_PASSWORD="123"
 CLOUD_INIT_IP="dhcp"
 CLOUD_INIT_NAMESERVER="8.8.8.8"
 CLOUD_INIT_SEARCHDOMAIN="google.com"
+INTERFACE=$(ip link show | grep -v "lo" | grep -oP '^\d+: \K[^:]+')
+
+# Add bridge
+cat <<EOL >> /etc/network/interfaces
+
+auto vmbr0
+iface vmbr0 inet dhcp
+    bridge_ports $INTERFACE
+    bridge_stp off
+    bridge_fd 0
+EOL
+
+systemctl restart networking
 
 # Download and prepare image
 cd $IMAGES_PATH

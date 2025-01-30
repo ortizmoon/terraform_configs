@@ -12,8 +12,3 @@ variable "private_key" {
   description = "Path for privatekey SSH"
   type        = string
 }
-
-variable "proxmox_user" {
-  description = "PVE User"
-  type        = string
-}
