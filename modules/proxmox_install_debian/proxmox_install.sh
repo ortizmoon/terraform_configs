@@ -2,6 +2,7 @@
 
 # Init env "proxmox_user" from arg
 PVE_USERNAME=$1
+PVE_PASS=$2
 
 # Noninteractive var
 export DEBIAN_FRONTEND=noninteractive
@@ -18,7 +19,7 @@ debian_version=$(lsb_release -c | sed 's/.*:\s*//')
 apt update -y
 
 # Install needed packets
-apt install -y wget curl gnupg lsb-release
+apt install -y wget curl gnupg lsb-release libguestfs-tools
 
 # Add Proxmox repository
 echo "deb http://download.proxmox.com/debian/pve $debian_version pve-no-subscription" | sudo tee /etc/apt/sources.list.d/pve-no-subscription.list
@@ -29,15 +30,12 @@ wget https://enterprise.proxmox.com/debian/proxmox-release-$debian_version.gpg -
 # Install Proxmox
 apt install -y proxmox-ve postfix open-iscsi
 
+#Remove enterprise repo
+rm -r /etc/apt/sources.list.d/pve-enterprise.list
 
-
-# Create password for username
-echo "Insert password:"
-read -s PASSWORD
-
-pveum user add $PVE_USERNAME@pve -password $PASSWORD && 
+# Create PVE user with all privileges
+pveum user add $PVE_USERNAME@pve -password $PVE_PASS && 
 pveum acl modify / -user $PVE_USERNAME@pve --roles Administrator
-echo "Создан успешно"
 
-# Create API-token for Proxmox
-pveum user token add $PVE_USERNAME@pve token --privsep 0
+# Create API-token with all privileges
+pveum user token add $PVE_USERNAME@pve token --privsep 0 > /root/apikey

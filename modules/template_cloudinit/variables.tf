@@ -13,11 +13,7 @@ variable "private_key" {
   type        = string
 }
 
-variable "domain_name" {
-  description = "Domain name for script"
+variable "proxmox_user" {
+  description = "PVE User"
   type        = string
-}
-
-output "domain_name" {
-  value = var.domain_name
 }

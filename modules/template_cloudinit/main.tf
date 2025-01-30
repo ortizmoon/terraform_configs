@@ -15,19 +15,15 @@ resource "null_resource" "install_proxmox" {
     timeout     = "2m"
   }
 
-  
   provisioner "file" {
-    source      = "./modules/proxmox_install_debian/proxmox_install.sh"
-    destination = "/tmp/proxmox_install.sh"
+    source      = "./modules/template_cloudinit/template_cloud_init.sh"
+    destination = "/tmp/template_cloud_init.sh"
   }
-  
+
   provisioner "remote-exec" {
     inline = [
-
-      "chmod +x /tmp/proxmox_install.sh",
-
-      "sudo /tmp/proxmox_install.sh ${var.proxmox_user} ${var.proxmox_pass}"
-      
+      "chmod +x /tmp/template_cloud_init.sh",
+      "sudo /tmp/template_cloud_init.sh"
     ]
   }
 }

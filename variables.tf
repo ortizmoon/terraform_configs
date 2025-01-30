@@ -27,6 +27,13 @@ variable "proxmox_user" {
   type        = string
 }
 
-# output "proxmox_user" {
-#   value = var.proxmox_user
+variable "proxmox_pass" {
+  description = "PVE pass"
+  type        = string
+}
+
+
+
+# output "proxmox_pass" {
+#   value = var.proxmox_pass
 # }
